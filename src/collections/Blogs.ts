@@ -12,7 +12,8 @@ const Blogs: CollectionConfig = {
   fields: [
     {
       name: "postFormat",
-      type: "text",
+      type: "select",
+      options: ["audio", "video"],
       label: "Post Format",
       required: true,
     },

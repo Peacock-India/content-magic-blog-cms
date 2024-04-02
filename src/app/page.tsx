@@ -4,9 +4,9 @@ import { notFound } from 'next/navigation'
 import { getPayloadClient } from '../getPayload'
 import { Page } from './../payload-types'
 import { Gutter } from './_components/Gutter'
+import { RichText } from './_components/RichText'
 
 import classes from './page.module.scss'
-import { RichText } from './_components/RichText'
 
 export default async function Home() {
   const payload = await getPayloadClient()

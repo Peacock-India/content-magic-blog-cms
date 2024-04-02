@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import type { CollectionConfig } from 'payload/types'
 
 import validateURL from '../utilities/validateURL'

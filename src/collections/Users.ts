@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/consistent-type-imports */
 import { CollectionConfig } from 'payload/types'
 
 const Users: CollectionConfig = {

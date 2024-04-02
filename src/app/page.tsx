@@ -5,7 +5,6 @@ import { getPayloadClient } from '../getPayload'
 import { Page } from './../payload-types'
 import { Gutter } from './_components/Gutter'
 
-
 import classes from './page.module.scss'
 
 export default async function Home() {

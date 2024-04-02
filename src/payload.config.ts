@@ -1,7 +1,8 @@
 import { webpackBundler } from '@payloadcms/bundler-webpack'
 // import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { postgresAdapter } from '@payloadcms/db-postgres'
-import { slateEditor } from '@payloadcms/richtext-slate'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
+// import { slateEditor } from '@payloadcms/richtext-slate'
 import dotenv from 'dotenv'
 import path from 'path'
 import { buildConfig } from 'payload/config'
@@ -13,7 +14,6 @@ import Images from './collections/Images'
 import { Pages } from './collections/Pages'
 import Users from './collections/Users'
 import BeforeLogin from './components/BeforeLogin'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
 dotenv.config({
   path: path.resolve(__dirname, '../.env'),

@@ -1,27 +1,56 @@
-import express from 'express'
-import payload from 'payload'
+import dotenv from 'dotenv'
+import next from 'next'
+import nextBuild from 'next/dist/build'
+import path from 'path'
 
-require('dotenv').config()
-const app = express()
-
-// Redirect root to Admin panel
-app.get('/', (_, res) => {
-  res.redirect('/admin')
+dotenv.config({
+  path: path.resolve(__dirname, '../.env'),
 })
 
-const start = async () => {
-  // Initialize Payload
-  await payload.init({
-    secret: process.env.PAYLOAD_SECRET,
-    express: app,
-    onInit: async () => {
-      payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`)
+import express from 'express'
+
+import { getPayloadClient } from './getPayload'
+
+const app = express()
+const PORT = process.env.PORT || 3000
+
+const start = async (): Promise<void> => {
+  const payload = await getPayloadClient({
+    initOptions: {
+      express: app,
+      onInit: async newPayload => {
+        newPayload.logger.info(`Payload Admin URL: ${newPayload.getAdminURL()}`)
+      },
     },
+    seed: process.env.PAYLOAD_PUBLIC_SEED === 'true',
   })
 
-  // Add your own express routes here
+  if (process.env.NEXT_BUILD) {
+    app.listen(PORT, async () => {
+      payload.logger.info(`Next.js is now building...`)
+      // @ts-expect-error
+      await nextBuild(path.join(__dirname, '..'))
+      process.exit()
+    })
 
-  app.listen(3000)
+    return
+  }
+
+  const nextApp = next({
+    dev: process.env.NODE_ENV !== 'production',
+  })
+
+  const nextHandler = nextApp.getRequestHandler()
+
+  app.use((req, res) => nextHandler(req, res))
+
+  nextApp.prepare().then(() => {
+    payload.logger.info('Next.js started')
+
+    app.listen(PORT, async () => {
+      payload.logger.info(`Next.js App URL: ${process.env.PAYLOAD_PUBLIC_SERVER_URL}`)
+    })
+  })
 }
 
 start()

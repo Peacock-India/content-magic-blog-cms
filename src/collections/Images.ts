@@ -1,39 +1,39 @@
-import { CollectionConfig } from "payload/types";
+import type { CollectionConfig } from 'payload/types'
 
 const Images: CollectionConfig = {
-  slug: "images",
+  slug: 'images',
   upload: {
-    staticURL: "/images",
-    staticDir: "images",
+    staticURL: '/images',
+    staticDir: 'images',
     imageSizes: [
       {
-        name: "thumbnail",
+        name: 'thumbnail',
         width: 400,
         height: 300,
-        position: "centre",
+        position: 'centre',
       },
       {
-        name: "card",
+        name: 'card',
         width: 768,
         height: 1024,
-        position: "centre",
+        position: 'centre',
       },
       {
-        name: "tablet",
+        name: 'tablet',
         width: 1024,
         height: undefined,
-        position: "centre",
+        position: 'centre',
       },
     ],
-    adminThumbnail: "thumbnail",
-    mimeTypes: ["image/*"],
+    adminThumbnail: 'thumbnail',
+    mimeTypes: ['image/*'],
   },
   fields: [
     {
-      name: "selectImage",
-      type: "text",
+      name: 'selectImage',
+      type: 'text',
     },
   ],
-};
+}
 
-export default Images;
+export default Images

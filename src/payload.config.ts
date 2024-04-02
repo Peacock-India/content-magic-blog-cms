@@ -1,6 +1,7 @@
 import { webpackBundler } from '@payloadcms/bundler-webpack'
+import { mongooseAdapter } from '@payloadcms/db-mongodb'
 // import { mongooseAdapter } from '@payloadcms/db-mongodb'
-import { postgresAdapter } from '@payloadcms/db-postgres'
+// import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 // import { slateEditor } from '@payloadcms/richtext-slate'
 import dotenv from 'dotenv'
@@ -29,13 +30,16 @@ export default buildConfig({
     },
   },
   editor: lexicalEditor({}),
-  graphQL: {
-    schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
-  },
-  db: postgresAdapter({
-    pool: {
-      connectionString: process.env.DATABASE_URI,
-    },
+  // graphQL: {
+  //   schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
+  // },
+  // db: postgresAdapter({
+  //   pool: {
+  //     connectionString: process.env.DATABASE_URI,
+  //   },
+  // }),
+  db: mongooseAdapter({
+    url: process.env.DATABASE_URI,
   }),
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),

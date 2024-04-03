@@ -23,6 +23,9 @@ dotenv.config({
 export default buildConfig({
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL || '',
   collections: [Pages, Images, Authors, Blogs, Ctas, Users],
+  routes:{
+    admin: '/',
+  },
   admin: {
     bundler: webpackBundler(),
     components: {
